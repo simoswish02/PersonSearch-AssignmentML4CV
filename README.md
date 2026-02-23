@@ -43,8 +43,3 @@ The project uses the **PRW (Person Re-Identification in the Wild)** dataset:
 
 This project is for academic purposes only. 
 It was developed as part of the Machine Learning for Computer Vision course at the University of Bologna (A.Y. 2025/26).
-
-
-
-pip install -r requirements.txt
-
