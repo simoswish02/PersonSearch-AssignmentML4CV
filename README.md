@@ -1,3 +1,21 @@
+---
+license: cc
+datasets:
+- sshao0516/CrowdHuman
+- aveocr/Market-1501-v15.09.15.zip
+language:
+- en
+base_model:
+- lakeAGI/PersonViT
+- Ultralytics/YOLO26
+tags:
+- person_search
+- PRW
+- Tranformer
+- PersonViT
+- YOLO26
+- ablation
+---
 # Detector Training, file: Detector_Training.ipynb
 
 ## Overview
