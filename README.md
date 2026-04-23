@@ -1,4 +1,9 @@
-# Person Search Complete Pipeline, file: person_search_complete_FULL.ipynb
+# Person Search Complete Pipeline
+
+![Person Search Example 1](assets/PersonSearch.png)
+![Person Search Example 2](assets/PersonSearch2.png)
+![Person Search Example 3](assets/PersonSearch3.png)
+![Person Search Example 4](assets/PersonSearch4.png)
 
 ## Overview
 
@@ -62,12 +67,7 @@ The pipeline uses YOLO26-Large (Full FT, mAP@0.5 = 96.24%, Recall = 91.38%) as d
 
 ## Visualization Examples
 
-The notebook includes an interactive widget that allows exploring query results. Below are example outputs showing the query image alongside the top-K retrieved gallery matches (green box = correct match, red box = wrong match):
-
-![Person Search Example 1](assets/PersonSearch.png)
-![Person Search Example 2](assets/PersonSearch2.png)
-![Person Search Example 3](assets/PersonSearch3.png)
-![Person Search Example 4](assets/PersonSearch4.png)
+The notebook includes an interactive widget that allows exploring query results. Images presented are example outputs showing the query image alongside the top-K retrieved gallery matches (green box = correct match, red box = wrong match):
 
 ## Reproducibility
 
