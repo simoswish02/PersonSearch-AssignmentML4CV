@@ -64,10 +64,10 @@ The pipeline uses YOLO26-Large (Full FT, mAP@0.5 = 96.24%, Recall = 91.38%) as d
 
 The notebook includes an interactive widget that allows exploring query results. Below are example outputs showing the query image alongside the top-K retrieved gallery matches (green box = correct match, red box = wrong match):
 
-![Person Search Example 1](assets/PersonSearch.jpg)
-![Person Search Example 2](assets/PersonSearch2.jpg)
-![Person Search Example 3](assets/PersonSearch3.jpg)
-![Person Search Example 4](assets/PersonSearch4.jpg)
+![Person Search Example 1](assets/PersonSearch.png)
+![Person Search Example 2](assets/PersonSearch2.png)
+![Person Search Example 3](assets/PersonSearch3.png)
+![Person Search Example 4](assets/PersonSearch4.png)
 
 ## Reproducibility
 
