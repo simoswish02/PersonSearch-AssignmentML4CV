@@ -1,20 +1,82 @@
----
-license: cc
-datasets:
-- sshao0516/CrowdHuman
-- aveocr/Market-1501-v15.09.15.zip
-language:
-- en
-base_model:
-- lakeAGI/PersonViT
-- Ultralytics/YOLO26
-tags:
-- person_search
-- PRW
-- Tranformer
-- PersonViT
-- YOLO26
-- ablation
+# Person Search Complete Pipeline, file: person_search_complete_FULL.ipynb
+
+## Overview
+
+This notebook implements an **end-to-end two-stage Person Search pipeline** on the **PRW** (Person Re-identification in the Wild) dataset, combining the best detector and Re-ID model trained in the previous notebooks into a unified evaluation framework.
+
+The pipeline integrates:
+- **YOLO26** (fine-tuned) as the pedestrian detector to extract bounding boxes from gallery images
+- **PersonViT** (fine-tuned, ViT-Base, Full FT + TripletMarginLoss) as the Re-ID model to produce L2-normalised embeddings
+- A custom `eval_search_prw` evaluation function implementing the standard PRW search protocol
+
+## Requirements
+
+### Platform
+
+The notebook was developed and executed on **Google Colab** with a single GPU (CUDA). Google Drive is mounted to load pre-trained weights.
+
+### Dependencies
+
+All required packages are installed in the first cell:
+- ultralytics, opencv-python, scipy, scikit-learn, albumentations, ipywidgets, tqdm, matplotlib, yacs
+
+The PersonViT model code is cloned at runtime from a personal GitHub fork ([github.com/simoswish02/PersonViT](https://github.com/simoswish02/PersonViT)) that fixes an import error present in the original upstream repository.
+
+### Input Datasets and Models
+
+Before running the notebook, ensure the following are available (mounted via Google Drive or Kaggle):
+
+| Resource | Description |
+|---|---|
+| PRW Dataset | PRW -- Person Re-identification in the Wild |
+| YOLO26 Weights | Best YOLO26 checkpoint from `Detector_Training.ipynb` |
+| PersonViT Weights | Best PersonViT-Base checkpoint from `ReIdentificator_Training.ipynb` |
+
+## Notebook Structure
+
+| Phase | Description |
+|---|---|
+| 1 - Setup & Installation | Install dependencies, clone PersonViT repo |
+| 2 - Configuration | Centralized `Config` class for all paths and hyperparameters |
+| 3 - Dataset Definition | `PRWPersonSearchDataset` for gallery and query splits |
+| 4 - Model Wrappers | Agnostic `DetectorWrapper` and `ReIDWrapper` classes |
+| 5 - Evaluation Function | Custom `eval_search_prw` implementing PRW search protocol |
+| 6 - Inference Pipeline | Gallery feature extraction → Query feature extraction → Evaluation |
+| 7 - Interactive Visualization | Slider-based visualization of query results with bounding boxes |
+
+## Outputs
+
+All results are saved under the configured `OUTPUT_DIR`:
+- `gallery_cache.pkl` — cached gallery detections and features (avoid re-running inference)
+- `query_cache.pkl` — cached query features
+- `results.pkl` — full evaluation results dictionary
+
+## Key Results
+
+| Metric | Value |
+|---|---|
+| **mAP** | **70.62%** |
+| **Top-1 Accuracy** | **92.46%** |
+
+The pipeline uses YOLO26-Large (Full FT, mAP@0.5 = 96.24%, Recall = 91.38%) as detector and PersonViT-Base (Full FT + TripletMarginLoss, Re-ID mAP = 85.65%, Rank-1 = 94.51%) as Re-ID model.
+
+## Visualization Examples
+
+The notebook includes an interactive widget that allows exploring query results. Below are example outputs showing the query image alongside the top-K retrieved gallery matches (green box = correct match, red box = wrong match):
+
+![Person Search Example 1](assets/PersonSearch.jpg)
+![Person Search Example 2](assets/PersonSearch2.jpg)
+![Person Search Example 3](assets/PersonSearch3.jpg)
+![Person Search Example 4](assets/PersonSearch4.jpg)
+
+## Reproducibility
+
+Gallery and query features are cached to disk. If valid cache files exist, inference is skipped and results are loaded directly. This allows re-running the evaluation and visualization cells without repeating the full forward pass.
+
+## Estimated Runtime
+
+Feature extraction from the full PRW gallery takes approximately **1-2 hours** depending on GPU speed. With cached features, evaluation and visualization are near-instantaneous.
+
 ---
 # Detector Training, file: Detector_Training.ipynb
 
