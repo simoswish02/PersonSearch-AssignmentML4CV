@@ -1,1 +1,2 @@
 weights_reidentificator/vit_base_full_triplet.pth filter=lfs diff=lfs merge=lfs -text
+weights_reidentificator_msmt/vit_base_full_triplet.pth filter=lfs diff=lfs merge=lfs -text
